@@ -76,7 +76,7 @@ console.log(movies)
   if (error) {
     return <div className="text-red-500">Error loading movies</div>;
   }
-
+console.log(url)
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-4">
