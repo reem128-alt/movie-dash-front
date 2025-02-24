@@ -43,7 +43,9 @@ const formSchema = z.object({
     .array(
       z.object({
         name: z.string().min(1, "Actor name is required"),
-        image: z.instanceof(File, { message: "Actor image is required" }).optional(),
+        image: z
+          .instanceof(File, { message: "Actor image is required" })
+          .optional(),
       })
     )
     .min(1, "At least one actor is required"),
@@ -63,6 +65,7 @@ const formSchema = z.object({
       "Release year cannot be too far in the future"
     )
     .int("Release year must be a whole number"),
+  views: z.number().optional(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -125,6 +128,7 @@ export function AddMovieForm() {
         story: data.story,
         duration: data.duration,
         rating: data.rating,
+        views: data.views,
         releaseYear: data.releaseYear,
         actors: data.actors.map((actor) => ({ name: actor.name })),
       };
@@ -476,6 +480,29 @@ export function AddMovieForm() {
                 <FormDescription className="text-purple-300">
                   Rate from 0 to 10 (one decimal place)
                 </FormDescription>
+                <FormMessage className="text-red-400" />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="grid gap-6 sm:grid-cols-2">
+          <FormField
+            control={form.control}
+            name="views"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-purple-100">views</FormLabel>
+                <FormControl>
+                  <Input
+                    type="number"
+                    className="bg-purple-950/30 border-purple-800 text-purple-100"
+                    {...field}
+                    onChange={(event) =>
+                      field.onChange(Number.parseFloat(event.target.value))
+                    }
+                  />
+                </FormControl>
+
                 <FormMessage className="text-red-400" />
               </FormItem>
             )}
