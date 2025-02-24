@@ -66,6 +66,7 @@ const formSchema = z.object({
       "Release year cannot be too far in the future"
     )
     .int("Release year must be a whole number"),
+    views:z.number().optional()
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -104,6 +105,7 @@ export function EditMovie() {
           duration: foundMovie.duration,
           rating: foundMovie.rating,
           releaseYear: foundMovie.releaseYear,
+          views:foundMovie.views
         });
       }
     }
@@ -135,6 +137,7 @@ export function EditMovie() {
     // Append all movie data as a single JSON string
     const movieData = {
       title: data.title,
+      views:data.views,
       ageRating: data.ageRating,
       producer: data.producer,
       story: data.story,
@@ -147,7 +150,7 @@ export function EditMovie() {
       })),
     };
     formData.append("movieData", JSON.stringify(movieData));
-
+console.log(formData)
     // Handle poster file
     if (data.poster instanceof File) {
       formData.append("poster", data.poster);
@@ -499,6 +502,30 @@ export function EditMovie() {
             )}
           />
         </div>
+        <div  className="grid gap-6 sm:grid-cols-2">
+        <FormField
+            control={form.control}
+            name="views"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-purple-100">views</FormLabel>
+                <FormControl>
+                  <Input
+                    type="number"
+                   
+                    className="bg-purple-950/30 border-purple-800 text-purple-100"
+                    {...field}
+                    onChange={(event) =>
+                      field.onChange(Number.parseFloat(event.target.value))
+                    }
+                  />
+                </FormControl>
+                
+                <FormMessage className="text-red-400" />
+              </FormItem>
+            )}
+          />
+          </div>
 
         <div className="flex justify-end gap-4">
           <Button
