@@ -42,7 +42,7 @@ function MovieList() {
     refetchInterval: 30000,
   });
 
-
+console.log(movies)
 
   // Update local search when query from Redux changes
   React.useEffect(() => {
@@ -139,7 +139,7 @@ function MovieList() {
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <Avatar className="border-2 border-purple-900 ring-2 ring-black">
-                          <AvatarImage src={actor.image} alt={actor.name} />
+                          <AvatarImage src={`${url}${actor.image}`} alt={actor.name} />
                           <AvatarFallback className="bg-purple-950 text-purple-200">
                             {actor.name[0]}
                           </AvatarFallback>
