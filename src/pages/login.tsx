@@ -59,7 +59,7 @@ export default function Login() {
                 onChange={(e) =>
                   setUserInfo({ ...userInfo, username: e.target.value })
                 }
-                placeholder="Enter your username"
+                placeholder="admin"
                 required
                 className="bg-purple-950/30 border-purple-800 text-purple-100 placeholder:text-purple-400"
               />
@@ -75,7 +75,7 @@ export default function Login() {
                 onChange={(e) =>
                   setUserInfo({ ...userInfo, password: e.target.value })
                 }
-                placeholder="Enter your password"
+                placeholder="admin"
                 required
                 className="bg-purple-950/30 border-purple-800 text-purple-100 placeholder:text-purple-400"
               />
@@ -102,3 +102,4 @@ export default function Login() {
     </div>
   );
 }
+
