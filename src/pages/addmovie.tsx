@@ -94,6 +94,7 @@ export function AddMovieForm() {
     onSuccess(data) {
       toast.success("Movie added successfully!");
       queryClient.invalidateQueries({ queryKey: ["movies"] });
+      navigate("/movies");
       console.log(data);
     },
     onError(error) {
@@ -152,7 +153,6 @@ export function AddMovieForm() {
       }
 
       mutation.mutate(formData);
-      navigate("/movies");
     } catch (error) {
       toast.error("Failed to add movie");
       console.error(error);
@@ -520,9 +520,10 @@ export function AddMovieForm() {
           </Button>
           <Button
             type="submit"
-            className="bg-purple-600 hover:bg-purple-700 text-purple-50"
+            disabled={mutation.isPending}
+            className="bg-purple-600 hover:bg-purple-700 text-purple-50 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Add Movie
+            {mutation.isPending ? "Adding..." : "Add Movie"}
           </Button>
         </div>
       </form>
