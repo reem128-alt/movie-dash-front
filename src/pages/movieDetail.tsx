@@ -54,7 +54,9 @@ export default function MovieDetail() {
   if (!movie) return <div>Movie not found</div>;
 
   const posterUrl = movie.poster
-    ? `${url}${movie.poster}`
+    ? movie.poster.startsWith("http")
+      ? movie.poster
+      : `${url}${movie.poster}`
     : `${url}/placeholder.svg`;
 
   const getActorImageUrl = (actorImage: string | undefined) => {

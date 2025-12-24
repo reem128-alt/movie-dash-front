@@ -538,9 +538,10 @@ console.log(formData)
           </Button>
           <Button
             type="submit"
-            className="bg-purple-600 hover:bg-purple-700 text-purple-50"
+            disabled={EditMutation.isPending}
+            className="bg-purple-600 hover:bg-purple-700 text-purple-50 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Save Changes
+            {EditMutation.isPending ? "Saving..." : "Save Changes"}
           </Button>
         </div>
       </form>

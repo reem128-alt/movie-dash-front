@@ -156,7 +156,11 @@ export default function MovieTable() {
                   </TableCell>
                   <TableCell>
                     <img
-                      src={`${url}${movie.poster}`}
+                      src={
+                        movie.poster?.startsWith("http")
+                          ? movie.poster
+                          : `${url}${movie.poster}`
+                      }
                       alt={movie.title}
                       className="w-16 h-24 object-contain rounded-md"
                     />

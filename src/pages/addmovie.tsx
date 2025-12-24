@@ -520,6 +520,7 @@ export function AddMovieForm() {
           </Button>
           <Button
             type="submit"
+            
             disabled={mutation.isPending}
             className="bg-purple-600 hover:bg-purple-700 text-purple-50 disabled:opacity-50 disabled:cursor-not-allowed"
           >

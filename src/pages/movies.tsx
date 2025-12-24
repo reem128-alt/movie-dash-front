@@ -22,6 +22,7 @@ import { useAppSelector, useAppDispatch } from "../store/hook";
 import { setQuery } from "../store/searchReducer";
 import Loading from "../components/loading";
 import { Movie } from "../types/movie";
+import { Button } from "../components/ui/button";
 
 const url = import.meta.env.VITE_API_BASE_URL;
 
@@ -77,6 +78,23 @@ console.log(movies)
     return <div className="text-red-500">Error loading movies</div>;
   }
 console.log(url)
+
+  if (!movies.length) {
+    return (
+      <div className="space-y-4 text-center text-purple-100 py-12">
+        <h2 className="text-2xl font-semibold">No movies yet</h2>
+        <p className="text-purple-300">
+          Add your first movie to get started.
+        </p>
+        <Button
+          onClick={() => navigate("/addmovie")}
+          className="bg-purple-700 hover:bg-purple-600 text-white"
+        >
+          Add Movie
+        </Button>
+      </div>
+    );
+  }
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-4">
@@ -97,7 +115,11 @@ console.log(url)
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {filteredMovies.map((movie) => (
+        {filteredMovies.map((movie) => {
+          const posterUrl = movie.poster?.startsWith("http")
+            ? movie.poster
+            : `${url}${movie.poster}`;
+          return (
           <Card
             key={movie._id}
             className="overflow-hidden transition-all hover:shadow-lg hover:shadow-purple-900/20 border-purple-900 bg-gradient-to-br from-purple-950/50 to-black"
@@ -106,7 +128,7 @@ console.log(url)
             <CardHeader className="p-0">
               <div className="aspect-[3/4] h-[500px] relative">
                 <img
-                  src= {`${url}${movie.poster}`}
+                  src={posterUrl}
                   alt={movie.title}
                   className="object-contain w-full h-full"
                   
@@ -167,7 +189,8 @@ console.log(url)
               </div>
             </CardFooter>
           </Card>
-        ))}
+        );
+        })}
       </div>
 
       {localSearch && filteredMovies.length === 0 && (
