@@ -106,7 +106,7 @@ export default function MovieDetail() {
             <img
               src={posterUrl}
               alt={movie.title}
-              className="object-contain w-full h-full absolute inset-0"
+              className="object-cover w-full h-full absolute inset-0"
             />
           </motion.div>
 
